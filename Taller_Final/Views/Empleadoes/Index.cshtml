@@ -7,7 +7,7 @@
 <h1>Empleados</h1>
 
 <p>
-    <a asp-action="Create">Crear nuevo empleado</a>
+    <a class="btn btn-secondary" asp-action="Create">Crear nuevo empleado</a>
 </p>
 <table class="table">
     <thead>
@@ -28,26 +28,31 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Documento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreImagen)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EmpleadoId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.EmpleadoId">Detalle</a> |
-                <a asp-action="Delete" asp-route-id="@item.EmpleadoId">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Documento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreImagen)
+                </td>
+                <td>
+                    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.EmpleadoId"><i class="fas fa-user-edit"></i> Editar</a> |
+                    <a class="btn btn-success" asp-action="Details" asp-route-id="@item.EmpleadoId"><i class="fas fa-info-circle"></i> Detalle</a> |
+                    <a class="m1-1 btn btn-danger" onclick="return confirm('¿Desea eliminar el registro?')" asp-action="Delete" asp-route-id="@item.EmpleadoId"><i class="fas fa-user-minus"></i> Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@section Scripts{
+
+    <script src="~/js/tabla.js"></script>
+}

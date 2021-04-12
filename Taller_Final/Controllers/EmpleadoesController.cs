@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Taller_Final.Models.DAL;
 using Taller_Final.Models.Entities;
+using Taller_Final.ViewModels;
 
 namespace Taller_Final.Controllers
 {
