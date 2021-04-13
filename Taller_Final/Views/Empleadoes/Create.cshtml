@@ -1,48 +1,273 @@
 ﻿@model Taller_Final.Models.Entities.Empleado
-
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+@section Styles{
 
-<h4>Empleado</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Documento" class="control-label"></label>
-                <input asp-for="Documento" class="form-control" />
-                <span asp-validation-for="Documento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
-                <span asp-validation-for="Telefono" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NombreImagen" class="control-label"></label>
-                <input asp-for="NombreImagen" class="form-control" />
-                <span asp-validation-for="NombreImagen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Crear empleado</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Empleadoes" >Gestión empleados</a></li>
+                    <li class="breadcrumb-item active">Crear empleado</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
 </div>
+<!-- /.content-header -->
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
 
-<div>
-    <a asp-action="Index">Back to List</a>
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input asp-for="Nombre" class="form-control" id="nombre" name="nombre" />
+                        <span asp-validation-for="Nombre" class="error text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Documento" class="control-label"></label>
+                        <input asp-for="Documento" class="form-control" id="documento" name="documento" />
+                        <span asp-validation-for="Documento" class="error text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Telefono" class="control-label"></label>
+                        <input asp-for="Telefono" class="form-control" id="telefono" name="telefono" />
+                        <span asp-validation-for="Telefono" class="error text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NombreImagen" for="imagen" class="control-label"></label>
+                        <br />
+                        <input asp-for="NombreImagen" type="file" id="imagen" name="imagen" accept="image/*" />
+                        <span asp-validation-for="NombreImagen" class="error text-danger"></span>
+                    </div>
+
+
+
+                    <table class="table" id="tabla">
+                        <thead>
+                            <tr>
+                                <th>Cargo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="filaPrincipal">
+                                <td>
+                                    <select id="cargo" name="cargo" class="form-control cargo" asp-items="@ViewBag.listaCargos"></select>
+                                    <span class="error text-danger"></span>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-success" id="agregar">Agregar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+
+
+                    <h4>Cargos - Detalle</h4>
+
+                    <table class="table table-responsive" id="EmpleadoCargos">
+                    </table>
+                    <span class="text-danger error"></span>
+
+                    <br />
+                    <br />
+
+                    <div class="form-group">
+                        <input type="button" value="Crear" id="crearEmpleado" name="crearEmpleado" class="btn btn-primary" />
+                    </div>
+                </form>
+                <div>
+                    <a asp-action="Index">Volver</a>
+                </div>
+
+
+            </div>
+            <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
 </div>
+<!-- /.content -->
+@section Scripts{
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+    $(document).ready(function () {
+        $("#agregar").click(function () {
+            var cargo = document.getElementById("cargo").value;
+            var $filanueva = $("#filaPrincipal").clone().removeAttr('id');
+            $('.cargo', $filanueva).val(cargo);
+            $('#agregar', $filanueva).addClass('remove').html('Eliminar').removeClass('btn-success').addClass('btn-danger').removeAttr('id');
+            //$('#cargo', $filanueva).attr('disabled', true);
+            $('#cargo', $filanueva).removeAttr('id');
+            $('#span.error', $filanueva).remove();
+            $('#EmpleadoCargos').append($filanueva[0]);
+        });
+        $('#EmpleadoCargos').on("click", ".remove", function () {
+            $(this).parents("tr").remove();
+        });
+        $("#crearEmpleado55555555555").click(function () {
+            var listaCargos = [];
+            $('#EmpleadoCargos tr').each(function () {
+                var item = {
+                    CargoId: parseInt($('select.cargo', this).val())
+                }
+                listaCargos.push(item);
+            });
+            const object = {
+                Cargos: listaCargos
+            };
+            fetch('@Url.Action("CreateDetails","Empleados")', {
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(object)
+            }).then(resp => resp.json())
+                .then(resp => {
+                    if (resp.data == "ok") {
+                        setTimeout(
+                            function () {
+                                window.location.href = "@Url.Action("Index","Empleados")";
+                            }, 4000);
+                        Swal.fire({
+                            //position: 'top-end',
+                            icon: 'success',
+                            title: 'empleado guardado',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        Swal.fire('¡Error al guardar!', '', 'info')
+                    }
+                }).catch(err => {
+                    Swal.fire('¡Error al guardar!', '', 'info')
+                })
+        })
+        $("#crearEmpleado").click(function () {
+            //Encabezado el empleado
+            var isValid = true;
+            var url = $(this).data('url');
+            var imagen = $("#imagen").prop("files");
+            var formData = new FormData();
+            formData.append("Nombre", document.getElementById("nombre").value);
+            formData.append("Documento", document.getElementById("documento").value);
+            formData.append("Telefono", document.getElementById("telefono").value);
+            formData.append("Imagen", imagen[0]);
+            if (document.getElementById("nombre").value == '') {
+                $('#nombre').siblings('span.error').text('Ingrese el nombre');
+                isValid = false;
+            } else {
+                $('#nombre').siblings('span.error').text('');
+            }
+            if (document.getElementById("telefono").value == '') {
+                $('#telefono').siblings('span.error').text('Ingrese el teléfono');
+                isValid = false;
+            } else {
+                $('#telefono').siblings('span.error').text('');
+            }
+            if (document.getElementById("documento").value == '') {
+                $('#documento').siblings('span.error').text('Ingrese el documento');
+                isValid = false;
+            } else {
+                $('#documento').siblings('span.error').text('');
+            }
+            if (isValid) {
+                Swal.fire({
+                    title: '¿Desea guardar el empleado?',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: `Guardar`,
+                    denyButtonText: `No guardar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            //url: "Empleados/Create",
+                            url: '@Url.Action("Create","Empleados")',
+                            contentType: false,
+                            processData: false,
+                            data: formData,
+                            success: function (result) {
+                                if (result.data == "ok") {
+                                    var listaCargos = [];
+                                    $('#EmpleadoCargos tr').each(function () {
+                                        var item = {
+                                            CargoId: parseInt($('select.cargo', this).val())
+                                        }
+                                        listaCargos.push(item);
+                                    });
+                                    const object = {
+                                        Cargos: listaCargos
+                                    };
+                                    fetch('@Url.Action("CreateDetails","Empleados")', {
+                                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                                        mode: 'cors', // no-cors, *cors, same-origin
+                                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                                        credentials: 'same-origin', // include, *same-origin, omit
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                            // 'Content-Type': 'application/x-www-form-urlencoded',
+                                        },
+                                        body: JSON.stringify(object)
+                                    }).then(resp => resp.json())
+                                        .then(resp => {
+                                            if (resp.data == "ok") {
+                                                setTimeout(
+                                                    function () {
+                                                        window.location.href = "@Url.Action("Index","Empleados")";
+                                                    }, 4000);
+                                                Swal.fire({
+                                                    //position: 'top-end',
+                                                    icon: 'success',
+                                                    title: 'empleado guardado',
+                                                    showConfirmButton: false,
+                                                    timer: 1500
+                                                })
+                                            } else {
+                                                Swal.fire('¡Error al guardar!', '', 'info')
+                                            }
+                                        }).catch(err => {
+                                            Swal.fire('¡Error al guardar!', '', 'info')
+                                        })
+                                } else {
+                                    Swal.fire('Error al guardar', '', 'info')
+                                }
+                            },
+                            error: function (err) {
+                                Swal.fire('Error al guardar', '', 'info')
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('no se guardó el empleado', '', 'info')
+                    }
+                })
+            }//fin del isvalid
+        }); // fin boton crearEmpleado
+});// fin del document ready
+    </script>
+
+
+
+
 }

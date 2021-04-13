@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Taller_Final.Models.DAL;
 
 namespace Taller_Final.Migrations
 {
     [DbContext(typeof(DbContextPractica))]
-    partial class DbContextPracticaModelSnapshot : ModelSnapshot
+    [Migration("20210413035621_tabla_producto")]
+    partial class tabla_producto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,34 +111,6 @@ namespace Taller_Final.Migrations
                     b.HasKey("ProductoId");
 
                     b.ToTable("Productos");
-                });
-
-            modelBuilder.Entity("Taller_Final.Models.Entities.Proveedor", b =>
-                {
-                    b.Property<int>("ProveedorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Correo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Identicacion")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PersonaContacto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProveedorId");
-
-                    b.ToTable("Proveerdores");
                 });
 
             modelBuilder.Entity("Taller_Final.Models.Entities.EmpleadoDetalle", b =>

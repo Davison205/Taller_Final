@@ -1,13 +1,7 @@
-﻿@model IEnumerable<Taller_Final.Models.Entities.Empleado>
+﻿@model IEnumerable<Taller_Final.Models.Entities.Proveedor>
 
 @{
     ViewData["Title"] = "Index";
-}
-
-
-@section Styles{
-
-
 }
 
 <!-- Content Header (Page header) -->
@@ -15,12 +9,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Gestionar empleado</h1>
+                <h1 class="m-0">Gestionar proveedores</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
-                    <li class="breadcrumb-item active">Empleados</li>
+                    <li class="breadcrumb-item active">Proveedores</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,24 +25,27 @@
 <div class="content">
     <div class="container-fluid">
         <p>
-            <a class="btn btn-outline-success" asp-action="Create"><i class="fa fa-plus-circle"></i> Crear nuevo empleado</a>
+            <a class="btn btn-outline-success" asp-action="Create"><i class="fa fa-plus-circle"></i> Crear nuevo proveedor</a>
         </p>
-
-
-        <table class="table" id="tabla">
+        <table class="table">
             <thead>
                 <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Identicacion)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Nombre)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Documento)
+                        @Html.DisplayNameFor(model => model.PersonaContacto)
                     </th>
-
+                    <th>
+                        @Html.DisplayNameFor(model => model.Correo)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Telefono)
                     </th>
-                    <th>Acciones</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -56,29 +53,28 @@
                 {
                     <tr>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Identicacion)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Nombre)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Documento)
+                            @Html.DisplayFor(modelItem => item.PersonaContacto)
                         </td>
-
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Correo)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Telefono)
                         </td>
                         <td>
-                            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.EmpleadoId"><i class="fas fa-user-edit"></i> Editar</a> |
-                            <a class="btn btn-success" asp-action="Details" asp-route-id="@item.EmpleadoId"><i class="fas fa-info-circle"></i> Detalle</a> |
-                            <a class="m1-1 btn btn-danger" onclick="return confirm('¿Desea eliminar el registro?')" asp-action="Delete" asp-route-id="@item.EmpleadoId"><i class="fas fa-user-minus"></i> Eliminar</a>
+                            <a asp-action="Edit" asp-route-id="@item.ProveedorId">Editar</a> |
+                            <a asp-action="Details" asp-route-id="@item.ProveedorId">Detalles</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ProveedorId">Eliminar</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-
-    </div><!-- /.container-fluid -->
-</div>
-<!-- /.content -->
-@section Scripts{
-
-    <script src="~/js/tabla.js"></script>
-}
+        </div>
+    </div>

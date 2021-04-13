@@ -18,11 +18,14 @@ public class Empleado
         [Required(ErrorMessage = "El campo nombre es requerido")]
         [Column("NombreEmpleado", TypeName = "nvarchar(50)")]
         public string Nombre { get; set; }
+
+        [Required(ErrorMessage = "El campo documento es requerido")]
         public int Documento { get; set; }
 
         [DisplayName("Cargo empleado")]
         public string Telefono { get; set; }
 
+        [DisplayName("Imagen")]
         public string NombreImagen { get; set; }
 
         public virtual List<EmpleadoDetalle> EmpleadoDetalles { get; set; }
