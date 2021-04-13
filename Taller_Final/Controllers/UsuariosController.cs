@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Taller_Final.Models.Entities;
+
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
