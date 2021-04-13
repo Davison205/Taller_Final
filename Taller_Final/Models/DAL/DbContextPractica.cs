@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using Taller_Final.Models.Entities;
 
 namespace Taller_Final.Models.DAL
 {
-    public class DbContextPractica : DbContext
+    public class DbContextPractica : IdentityDbContext
     {
         public DbContextPractica(DbContextOptions<DbContextPractica> options) :
            base(options)
@@ -20,5 +21,6 @@ namespace Taller_Final.Models.DAL
         public DbSet<EmpleadoDetalle> EmpleadoDetalles { get; set; }
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Proveedor> Proveerdores { get; set; }
+        public DbSet<UsuarioIdentity> UsusariosIdentity { get; set; }
     }
 }
