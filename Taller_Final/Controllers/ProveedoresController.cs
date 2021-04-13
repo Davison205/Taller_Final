@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Taller_Final.Models.Entities;
 
 namespace Taller_Final.Controllers
 {
+    [Authorize]
     public class ProveedoresController : Controller
     {
         private readonly DbContextPractica _context;
@@ -20,6 +22,7 @@ namespace Taller_Final.Controllers
         }
 
         // GET: Proveedors
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Proveerdores.ToListAsync());

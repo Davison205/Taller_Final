@@ -67,5 +67,28 @@ namespace Taller_Final.Controllers
 
             return View(usuarioViewModel);
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, loginViewModel.RecordarMe, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Dashboard", "Admin");
+                }
+                ModelState.AddModelError("", "Error login");
+            }
+            return View();
+        }
+        public async Task<IActionResult> CerrarSesion()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Usuarios");
+        }
     }
 }
