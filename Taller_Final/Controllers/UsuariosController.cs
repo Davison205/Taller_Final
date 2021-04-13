@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Taller_Final.Models.Entities;
-
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Taller_Final.Models.Entities;
 using Taller_Final.ViewModels.Usuario;
 
 namespace Taller_Final.Controllers
@@ -26,8 +23,8 @@ namespace Taller_Final.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var usuarios = await _userManager.Users.ToListAsync();
-            return View(usuarios);
+            var listaUsuarios = await _userManager.Users.ToListAsync();
+            return View(listaUsuarios);
         }
         public IActionResult CrearUsuario()
         {
